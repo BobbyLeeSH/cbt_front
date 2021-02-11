@@ -35,13 +35,12 @@ const BodyContainer = styled.div`
     height: 400px;
   }
   @media ${Device.web} { 
-    width: 40vw;
+    width: 500px;
     height: 400px;
   }
 `
 
 const HeaderDiv = styled.div`
-  font-family: 'Barlow', sans-serif;
   font-weight: 400;
   
   margin: 1rem;
@@ -113,7 +112,7 @@ const ErrorMessage = styled.div`
   height: 1rem;
   color: red;
   margin-top: 10px;
-  font-family: 'Barlow', sans-serif;
+  text-align: center;
 `
 
 const Login = () => {
@@ -160,12 +159,11 @@ const Login = () => {
                         <Input placeholder={"*******"} type={"password"} value={password}
                                onChange={handlePasswordChange}/>
                     </InputWrapper>
-                    <ErrorMessage> {error ? "Please check your login information again!" : ""}</ErrorMessage>
+                    <ErrorMessage> {error ? "Login information is invalid!" : ""}</ErrorMessage>
                     <LoginButton type={"submit"}>LOGIN</LoginButton>
                 </Form>
             </BodyContainer>
         </MainContainer>
-
     );
 }
 
