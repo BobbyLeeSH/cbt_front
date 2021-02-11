@@ -1,4 +1,4 @@
-import {combineReducers} from 'redux';
+import {combineReducers} from "@reduxjs/toolkit";
 import auth, {authSaga} from './auth';
 import {all} from 'redux-saga/effects';
 

@@ -1,5 +1,4 @@
 import axios from "axios";
-import store from "../modules/store";
 import {BASE_URL} from "./config";
 
 const API = axios.create({
@@ -11,8 +10,10 @@ const API = axios.create({
 API.interceptors.request.use(
     function(config) {
         // Do something before request is sent
-        // console.log(store.getState().auth.token)
-        // config.headers.Authorization = token
+
+        let token = localStorage.getItem("ACCESS_TOKEN")
+        console.log("interceptor token: ", token)
+        config.headers.common["Authorization"] = localStorage.getItem("ACCESS_TOKEN")
         // console.log("interceptor worked! Token: ", token)
         return config;
     },

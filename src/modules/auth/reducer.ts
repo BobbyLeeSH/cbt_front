@@ -18,7 +18,8 @@ const auth = (
         case LOGIN_SUCCESS:
             return {
                 ...state,
-                token: action.payload
+                token: action.payload,
+                error: null
             }
         case LOGIN_ERROR:
             return {

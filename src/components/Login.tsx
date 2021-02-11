@@ -1,8 +1,10 @@
 import React, {useState} from "react";
 import styled from "styled-components";
 import {Device} from "../util/Device";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {login} from '../modules/auth';
+import {RootReducerType} from "../modules";
+import API from "../api/Api";
 
 const MainContainer = styled.div`
   position: relative;
@@ -110,7 +112,7 @@ const Login = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const dispatch = useDispatch();
-
+    const {token, error} = useSelector((state: RootReducerType) => state.auth);
 
     const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setUsername(e.target.value);
@@ -122,7 +124,12 @@ const Login = () => {
 
     const handleLogin = async (e: React.FormEvent<HTMLElement>) => {
         e.preventDefault()
-        dispatch(login({username, password}));
+        dispatch(login({username, password}))
+    }
+
+    const handleTest = async (e: React.MouseEvent<HTMLElement>) => {
+        e.preventDefault()
+        API.get("/dev/users/roletest").then(res => console.log(res.data)).catch(err => console.log(err))
     }
 
     return (
@@ -142,6 +149,7 @@ const Login = () => {
                     </InputWrapper>
                     <LoginButton type={"submit"}>LOGIN</LoginButton>
                 </Form>
+                <LoginButton onClick={handleTest}>Test</LoginButton>
             </BodyContainer>
         </MainContainer>
 

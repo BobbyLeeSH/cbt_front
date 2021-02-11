@@ -9,7 +9,7 @@ function* loginSaga(action: ReturnType<typeof login>) {
     try {
         const res: AxiosResponse = yield call(() => LoginApi.login(loginRequest));
         let token = res.headers.authorization
-        console.log(token)
+        localStorage.setItem("ACCESS_TOKEN", token)
         yield put(loginSuccess(token)); // 성공 액션 디스패치
     } catch (e) {
         yield put(loginError(e));// 실패 액션 디스패치
