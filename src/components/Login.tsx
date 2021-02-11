@@ -1,10 +1,10 @@
-import React, {useState} from "react";
+import React, {useEffect, useLayoutEffect, useState} from "react";
 import styled from "styled-components";
 import {Device} from "../util/Device";
 import {useDispatch, useSelector} from "react-redux";
-import {login} from '../modules/auth';
+import {login, validateToken} from '../modules/auth';
 import {RootReducerType} from "../modules";
-import API from "../api/Api";
+import {useHistory} from "react-router";
 
 const MainContainer = styled.div`
   position: relative;
@@ -108,11 +108,29 @@ const LoginButton = styled.button`
   width: 60%;
 `;
 
+const ErrorMessage = styled.div`
+  font-size: 1rem;
+  height: 1rem;
+  color: red;
+  margin-top: 10px;
+  font-family: 'Barlow', sans-serif;
+`
+
 const Login = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const dispatch = useDispatch();
-    const {token, error} = useSelector((state: RootReducerType) => state.auth);
+    const {authenticated, error} = useSelector((state: RootReducerType) => state.auth);
+    const history = useHistory();
+
+    useLayoutEffect(() => {
+        let token = localStorage.getItem("ACCESS_TOKEN")
+        if (token) dispatch(validateToken())
+    }, [dispatch])
+
+    useEffect(() => {
+        if (authenticated) history.push("/")
+    }, [authenticated, history])
 
     const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setUsername(e.target.value);
@@ -125,11 +143,6 @@ const Login = () => {
     const handleLogin = async (e: React.FormEvent<HTMLElement>) => {
         e.preventDefault()
         dispatch(login({username, password}))
-    }
-
-    const handleTest = async (e: React.MouseEvent<HTMLElement>) => {
-        e.preventDefault()
-        API.get("/dev/users/roletest").then(res => console.log(res.data)).catch(err => console.log(err))
     }
 
     return (
@@ -147,9 +160,9 @@ const Login = () => {
                         <Input placeholder={"*******"} type={"password"} value={password}
                                onChange={handlePasswordChange}/>
                     </InputWrapper>
+                    <ErrorMessage> {error ? "Please check your login information again!" : ""}</ErrorMessage>
                     <LoginButton type={"submit"}>LOGIN</LoginButton>
                 </Form>
-                <LoginButton onClick={handleTest}>Test</LoginButton>
             </BodyContainer>
         </MainContainer>
 

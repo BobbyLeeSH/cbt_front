@@ -11,8 +11,6 @@ API.interceptors.request.use(
     function(config) {
         // Do something before request is sent
 
-        let token = localStorage.getItem("ACCESS_TOKEN")
-        console.log("interceptor token: ", token)
         config.headers.common["Authorization"] = localStorage.getItem("ACCESS_TOKEN")
         // console.log("interceptor worked! Token: ", token)
         return config;

@@ -1,10 +1,19 @@
-import {AuthType, LOGIN, LOGIN_ERROR, LOGIN_SUCCESS, LOGOUT} from "./actions";
+import {
+    AuthType,
+    LOGIN,
+    LOGIN_ERROR,
+    LOGIN_SUCCESS,
+    LOGOUT, LOGOUT_SUCCESS,
+    VALIDATE_TOKEN,
+    VALIDATE_TOKEN_ERROR,
+    VALIDATE_TOKEN_SUCCESS
+} from "./actions";
 import {AxiosError} from "axios";
 
-const initialState = {token: "", error: null};
+const initialState = {authenticated: false, error: null};
 
 interface AuthState {
-    token: String,
+    authenticated: Boolean,
     error: AxiosError | null;
 }
 
@@ -18,16 +27,33 @@ const auth = (
         case LOGIN_SUCCESS:
             return {
                 ...state,
-                token: action.payload,
+                authenticated: true,
                 error: null
             }
         case LOGIN_ERROR:
             return {
                 ...state,
+                authenticated: false,
                 error: action.payload
             }
+        case VALIDATE_TOKEN:
+            return state
+        case VALIDATE_TOKEN_SUCCESS:
+            return {
+                ...state,
+                authenticated: true,
+                error: null
+            }
+        case VALIDATE_TOKEN_ERROR:
+            return {
+                ...state,
+                authenticated: false,
+                error: null
+            }
         case LOGOUT:
-            return {...state, token: "", error: null};
+            return state;
+        case LOGOUT_SUCCESS:
+            return {...state, authenticated: false, error: null};
         default:
             return state;
     }
