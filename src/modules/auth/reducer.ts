@@ -10,11 +10,11 @@ import {
 } from "./actions";
 import {AxiosError} from "axios";
 
-const initialState = {authenticated: false, error: null};
+const initialState = {authenticated: false, LoginError: null};
 
 interface AuthState {
     authenticated: Boolean,
-    error: AxiosError | null;
+    LoginError: AxiosError | null;
 }
 
 const auth = (
@@ -28,13 +28,13 @@ const auth = (
             return {
                 ...state,
                 authenticated: true,
-                error: null
+                LoginError: null
             }
         case LOGIN_ERROR:
             return {
                 ...state,
                 authenticated: false,
-                error: action.payload
+                LoginError: action.payload
             }
         case VALIDATE_TOKEN:
             return state
@@ -42,18 +42,18 @@ const auth = (
             return {
                 ...state,
                 authenticated: true,
-                error: null
+                LoginError: null
             }
         case VALIDATE_TOKEN_ERROR:
             return {
                 ...state,
                 authenticated: false,
-                error: null
+                LoginError: null
             }
         case LOGOUT:
             return state;
         case LOGOUT_SUCCESS:
-            return {...state, authenticated: false, error: null};
+            return {...state, authenticated: false, LoginError: null};
         default:
             return state;
     }

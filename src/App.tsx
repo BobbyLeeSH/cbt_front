@@ -3,7 +3,9 @@ import {BrowserRouter as Router, Route} from "react-router-dom";
 
 import Login from "./components/Login";
 import GlobalStyle from "./GlobalStyle";
-import Main from "./components/Main";
+import Message from "./components/Message";
+import CreateMessage from "./components/CreateMessage";
+import LandingPage from "./components/LandingPage";
 
 
 function App() {
@@ -11,7 +13,9 @@ function App() {
         <>
             <GlobalStyle/>
             <Router>
-                <Route exact path="/" component={Main}/>
+                <Route exact path="/" component={LandingPage}/>
+                <Route exact path="/messages" component={Message}/>
+                <Route exact path="/messages/new" component={CreateMessage}/>
                 <Route exact path="/login" component={Login}/>
             </Router>
         </>

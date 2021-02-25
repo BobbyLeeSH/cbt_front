@@ -119,7 +119,7 @@ const Login = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const dispatch = useDispatch();
-    const {authenticated, error} = useSelector((state: RootReducerType) => state.auth);
+    const {authenticated, LoginError} = useSelector((state: RootReducerType) => state.auth);
     const history = useHistory();
 
     useLayoutEffect(() => {
@@ -159,7 +159,7 @@ const Login = () => {
                         <Input placeholder={"*******"} type={"password"} value={password}
                                onChange={handlePasswordChange}/>
                     </InputWrapper>
-                    <ErrorMessage> {error ? "Login information is invalid!" : ""}</ErrorMessage>
+                    <ErrorMessage> {LoginError ? "Login information is invalid!" : ""}</ErrorMessage>
                     <LoginButton type={"submit"}>LOGIN</LoginButton>
                 </Form>
             </BodyContainer>
