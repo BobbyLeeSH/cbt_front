@@ -47,7 +47,7 @@ const Participant = () => {
         participantId: string
     }
 
-    let {participantId} = useParams<ParamTypes>()
+    // let {participantId} = useParams<ParamTypes>()
 
     useLayoutEffect(() => {
         dispatch(getUserInfo())
