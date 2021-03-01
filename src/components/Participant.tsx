@@ -1,4 +1,4 @@
-import React, {useEffect, useLayoutEffect, useState} from "react";
+import React, {useEffect, useLayoutEffect} from "react";
 import Header from "./sub/Header";
 import styled from "styled-components";
 import {useDispatch, useSelector} from "react-redux";
@@ -6,7 +6,6 @@ import {RootReducerType} from "../modules";
 import {getUserInfo} from "../modules/user";
 import MessageSummary from "./sub/MessageSummary";
 import {useHistory, useParams} from "react-router";
-import {NavLink} from "react-router-dom";
 
 const MainContainer = styled.div`
   display: flex;
@@ -26,7 +25,7 @@ const BodyContainer = styled.div`
 
 const NewMessageButtonContainer = styled.div`
   position: absolute;
-  right: 8rem;
+  right: 9rem;
 `;
 
 const NewMessageButton = styled.button`
@@ -39,41 +38,16 @@ const NewMessageButton = styled.button`
   background-color: #63A088;
 `;
 
-const NavBar = styled.div`
-  display: flex;
-  align-items: center;
-
-  flex-wrap: wrap;
-  max-width: 960px;
-  background-color: #fff;
-`;
-
-const StyledMenuLink = styled(NavLink)`
-  font-size: 1rem;
-  color: #000;
-
-  text-decoration: none;
-  font-weight: 700;
-
-  padding: 10px;
-  
-  border-radius: 1rem;
-  margin: 5px;
-  &:hover {
-    color: #25BB41;
-  }
-`;
-
-const Message = () => {
+const Participant = () => {
     const {username, roles, userInfoError} = useSelector((state: RootReducerType) => state.userInfo);
     const dispatch = useDispatch();
-    const [isEditable, setIsEditable] = useState(false);
     const history = useHistory()
+
     interface ParamTypes {
-        messageType: string
+        participantId: string
     }
 
-    let {messageType} = useParams<ParamTypes>()
+    let {participantId} = useParams<ParamTypes>()
 
     useLayoutEffect(() => {
         dispatch(getUserInfo())
@@ -81,7 +55,6 @@ const Message = () => {
 
     useEffect(() => {
         if (!roles) history.push("/login")
-        if (roles.includes('ROLE_ADMIN') || roles.includes('ROLE_MESSAGE')) setIsEditable(true)
     }, [roles, history])
 
     useEffect(() => {
@@ -93,53 +66,27 @@ const Message = () => {
     return (
         <MainContainer>
             <Header username={username}/>
-            <NavBar>
-                <StyledMenuLink to="/messages/all" activeStyle={{backgroundColor: "#FCD9E3"}}>
-                    ALL
-                </StyledMenuLink>
-                <StyledMenuLink to="/messages/psycho-edu" activeStyle={{backgroundColor: "#FCD9E3"}}>
-                    PSYCHO EDUCATION
-                </StyledMenuLink>
-                <StyledMenuLink to="/messages/behavioural-act" activeStyle={{backgroundColor: "#FCD9E3"}}>
-                    BEHAVIOURAL ACTIVATION
-                </StyledMenuLink>
-                <StyledMenuLink to="/messages/cognitive-rest" activeStyle={{backgroundColor: "#FCD9E3"}}>
-                    COGNITIVE RESTRUCTURING
-                </StyledMenuLink>
-                <StyledMenuLink to="/messages/greeting" activeStyle={{backgroundColor: "#FCD9E3"}}>
-                    GREETINGS
-                </StyledMenuLink>
-                <StyledMenuLink to="/messages/ibms" activeStyle={{backgroundColor: "#FCD9E3"}}>
-                    IBMS
-                </StyledMenuLink>
-                <StyledMenuLink to="/messages/stroke" activeStyle={{backgroundColor: "#FCD9E3"}}>
-                    STROKE CARE
-                </StyledMenuLink>
-                <StyledMenuLink to="/messages/research" activeStyle={{backgroundColor: "#FCD9E3"}}>
-                    RESEARCH
-                </StyledMenuLink>
-            </NavBar>
             <BodyContainer>
 
-                <MessageSummary id={1} name={"Hypertension-1"} type={"HYPERTENSION"}
+                <MessageSummary id={1} name={"James Gao"} type={"HYPERTENSION"}
                                 content={"Hi, {{name}}. \nHow are you today? This is sample message template \ntest"}
                                 description={"First message for hypertension"}/>
-                <MessageSummary id={2} name={"Hypertension-2"} type={"HYPERTENSION"}
+                <MessageSummary id={2} name={"Jay Lee"} type={"HYPERTENSION"}
                                 content={"Hi, {{name}}. \nHow are you today? This is sample message template \ntest"}
                                 description={"Second message for hypertension"}/>
-                <MessageSummary id={3} name={"Hypertension-3"} type={"HYPERTENSION"}
+                <MessageSummary id={3} name={"Janice"} type={"HYPERTENSION"}
                                 content={"Hi, {{name}}. \nHow are you today? This is sample message template \ntest"}
                                 description={"Third message for hypertension"}/>
-                <MessageSummary id={4} name={"Hypertension-4"} type={"HYPERTENSION"}
+                <MessageSummary id={4} name={"Bobby Lee"} type={"HYPERTENSION"}
                                 content={"Hi, {{name}}. \nHow are you today? This is sample message template \ntest"}
                                 description={"Fourth message for hypertension"}/>
-                <MessageSummary id={5} name={"Hypertension-5"} type={"HYPERTENSION"}
+                <MessageSummary id={5} name={"Michael Jackson"} type={"HYPERTENSION"}
                                 content={"Hi, {{name}}. \nHow are you today? This is sample message template \ntest"}
                                 description={"Fifth message for hypertension"}/>
-                <MessageSummary id={6} name={"Hypertension-6"} type={"HYPERTENSION"}
+                <MessageSummary id={6} name={"Tom"} type={"HYPERTENSION"}
                                 content={"Hi, {{name}}. \nHow are you today? This is sample message template \ntest"}
                                 description={"Sixth message for hypertension"}/>
-                <MessageSummary id={7} name={"Hypertension-7"} type={"HYPERTENSION"}
+                <MessageSummary id={7} name={"Donald Trump"} type={"HYPERTENSION"}
                                 content={"Hi, {{name}}. \nHow are you today? This is sample message template \ntest"}
                                 description={"Seventh message for hypertension"}/>
                 <MessageSummary id={8} name={"Psycho-education-1"} type={"PSYCHO_EDUCATION"}
@@ -172,13 +119,13 @@ const Message = () => {
                 <MessageSummary id={8} name={"1234"} type={"123"} content={"1"} description={"11"}/>
                 <MessageSummary id={9} name={"1234"} type={"123"} content={"1"} description={"11"}/>
                 <NewMessageButtonContainer>
-                    {isEditable ? <NewMessageButton onClick={() => {
-                        history.push("/new-messages")
-                    }}> New Message </NewMessageButton> : null}
+                    <NewMessageButton onClick={() => {
+                        history.push("/new-participants")
+                    }}> New Participant </NewMessageButton>
                 </NewMessageButtonContainer>
             </BodyContainer>
         </MainContainer>
     );
 }
 
-export default Message;
+export default Participant;

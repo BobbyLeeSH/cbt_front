@@ -107,7 +107,7 @@ const Header: FunctionComponent<HeaderProps> = ({ username }) => {
     return (
         <MainContainer>
             <InfoContainer>
-                <NoStyleLink to={"/messages"}>
+                <NoStyleLink to={"/messages/all"}>
                     <Logo>EMI Project</Logo>
                 </NoStyleLink>
                 <UserInfo>
@@ -122,7 +122,7 @@ const Header: FunctionComponent<HeaderProps> = ({ username }) => {
                 <StyledMenuLink exact to="/participants" activeStyle={{borderBottom: "#25BB41 solid"}}>
                     Participant
                 </StyledMenuLink>
-                <StyledMenuLink exact to="/Questionnaires" activeStyle={{borderBottom: "#25BB41 solid"}}>
+                <StyledMenuLink exact to="/questionnaires" activeStyle={{borderBottom: "#25BB41 solid"}}>
                     Questionnaire
                 </StyledMenuLink>
             </NavBar>

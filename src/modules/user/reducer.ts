@@ -6,12 +6,12 @@ import {
 } from "./actions";
 import {AxiosError} from "axios";
 
-const initialState = {username: "", roles: [], authError: null};
+const initialState = {username: "", roles: [], userInfoError: null};
 
 interface UserState {
     username: string,
     roles: string[],
-    authError: AxiosError | null;
+    userInfoError: AxiosError | null;
 }
 
 const userInfo = (
@@ -26,14 +26,14 @@ const userInfo = (
                 ...state,
                 username: action.payload.username,
                 roles: action.payload.roles,
-                authError: null
+                userInfoError: null
             }
         case GET_USER_INFO_ERROR:
             return {
                 ...state,
                 username: "",
                 roles: [],
-                authError: action.payload
+                userInfoError: action.payload
             }
         default:
             return state;

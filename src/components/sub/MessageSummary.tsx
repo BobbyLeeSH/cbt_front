@@ -1,5 +1,6 @@
 import React, {FunctionComponent} from "react";
 import styled from "styled-components";
+import {useHistory} from "react-router";
 
 const MainContainer = styled.div`
   display: flex;
@@ -11,6 +12,8 @@ const MainContainer = styled.div`
   flex-direction: column;
   position: relative;
   justify-content: space-between;
+  
+  cursor: pointer;
 `
 
 const NameContainer = styled.div`
@@ -76,12 +79,14 @@ type MessageSummaryProps = {
 }
 
 const MessageSummary: FunctionComponent<MessageSummaryProps> = ({id, name, description, content, type}) => {
-    // const dispatch = useDispatch();
-    // const history = useHistory()
-
+    const history = useHistory()
+    const handleClickSummary = async (e: React.MouseEvent<HTMLElement>) => {
+        e.preventDefault()
+        history.push("/messages/detail/1")
+    }
 
     return (
-        <MainContainer>
+        <MainContainer onClick={handleClickSummary}>
             <NameContainer>{name}</NameContainer>
             <DescriptionContainer>{description}</DescriptionContainer>
             <ContentContainer>{content}</ContentContainer>

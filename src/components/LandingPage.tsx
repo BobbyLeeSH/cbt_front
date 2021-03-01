@@ -4,7 +4,7 @@ import {useHistory} from "react-router";
 const LandingPage = () => {
     const history = useHistory()
     useLayoutEffect(() => {
-        history.push("/messages")
+        history.push("/messages/all")
     })
     return (
         <div></div>

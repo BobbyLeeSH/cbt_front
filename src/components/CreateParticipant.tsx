@@ -84,15 +84,15 @@ const Title = styled.div`
 `
 
 const options = [
-    { value: 'Hypertension', label: 'Hypertension' },
-    { value: 'Psycho-education', label: 'Psycho-education' },
-    { value: 'Greeting', label: 'Greeting' },
+    {value: 'Hypertension', label: 'Hypertension'},
+    {value: 'Psycho-education', label: 'Psycho-education'},
+    {value: 'Greeting', label: 'Greeting'},
 ];
 
-type TypeOption = {label: string, value: string}
+type TypeOption = { label: string, value: string }
 
 
-const CreateMessage = () => {
+const CreateParticipant = () => {
     const {username, roles} = useSelector((state: RootReducerType) => state.userInfo);
 
     const [name, setName] = useState("")
@@ -132,7 +132,7 @@ const CreateMessage = () => {
         <MainContainer>
             <Header username={username}/>
             <BodyContainer>
-                <Title>New Message</Title>
+                <Title>New Participant</Title>
                 <Label>Message Name</Label>
                 <SimpleInput value={name} onChange={handleNameChange} placeholder={"What is the name of the message?"}/>
                 <ErrorMessage></ErrorMessage>
@@ -157,4 +157,4 @@ const CreateMessage = () => {
     )
 }
 
-export default CreateMessage;
+export default CreateParticipant;
